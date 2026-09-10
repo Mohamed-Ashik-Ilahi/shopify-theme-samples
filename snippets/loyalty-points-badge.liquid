@@ -1,0 +1,36 @@
+{%- comment -%}
+  Renders a customer's loyalty points / store credit balance.
+  Usage: {% render 'loyalty-points-badge' %}
+
+  Assumes loyalty balance is stored on the customer as a metafield:
+  customer.metafields.loyalty.points_balance (number_integer)
+
+  This is a demo pattern showing how a third-party loyalty app's balance
+  can be surfaced natively in the theme via metafields, rather than
+  relying solely on an app-injected widget.
+{%- endcomment -%}
+
+{%- if customer -%}
+  {%- assign points_balance = customer.metafields.loyalty.points_balance.value | default: 0 -%}
+  {%- assign points_value = points_balance | times: 0.01 | money -%}
+
+  <div class="loyalty-badge" data-loyalty-badge>
+    <span class="loyalty-badge__icon" aria-hidden="true">&#9733;</span>
+    <span class="loyalty-badge__text">
+      {{ points_balance }} points
+      <span class="loyalty-badge__value">(worth {{ points_value }})</span>
+    </span>
+
+    {%- if points_balance > 0 -%}
+      <a href="{{ routes.account_url }}" class="loyalty-badge__link">
+        View rewards
+      </a>
+    {%- else -%}
+      <span class="loyalty-badge__hint">Earn points on every order</span>
+    {%- endif -%}
+  </div>
+{%- else -%}
+  <div class="loyalty-badge loyalty-badge--guest">
+    <a href="{{ routes.account_login_url }}">Sign in to see your points</a>
+  </div>
+{%- endif -%}
