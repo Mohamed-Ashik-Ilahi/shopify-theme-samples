@@ -30,4 +30,4 @@ metafield-driven loyalty display.
 Built while working as a Shopify & WordPress developer at Linkcore
 Trading Pvt Ltd, where I customize live ecommerce storefronts
 (loyalty, subscriptions, product bundles, custom pages) for wellness
-brands. Full resume: *(add your resume link or portfolio site here)*
+brands. 
